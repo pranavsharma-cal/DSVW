@@ -13,12 +13,12 @@ FROM python:3.10-alpine3.18 AS final
 
 RUN apk upgrade --no-cache
 WORKDIR /dsvw
-RUN adduser -D dsvw && chown -R dsvw:dsvw /dsvw
+# RUN adduser -D dsvw && chown -R dsvw:dsvw /dsvw
 
 COPY dsvw.py .
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' dsvw.py
 COPY --from=build /source /
 
 EXPOSE 65412
-USER dsvw
+# USER dsvw
 CMD ["/dsvw/pex_wrapper", "dsvw.py"]
